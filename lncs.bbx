@@ -22,7 +22,22 @@
   \ifstrequal{#1}{full}{}{}
   \ifstrequal{#1}{acronym}{}{}
 }
-  
+
+\DeclareFieldFormat{eprint:arxiv}{%
+  \ifhyperref
+    {\href{https://arxiv.org/\abx@arxivpath/#1}{%
+        arXiv\addcolon
+        \nolinkurl{#1}%
+        \iffieldundef{eprintclass}
+          {}
+          {\addspace\UrlFont{\mkbibbrackets{\thefield{eprintclass}}}}}}
+    {arXiv\addcolon
+      \nolinkurl{#1}%
+      \iffieldundef{eprintclass}
+        {}
+        {\addspace\UrlFont{\mkbibbrackets{\thefield{eprintclass}}}}}}
+\DeclareFieldAlias{eprint:arXiv}{eprint:arxiv}
+
 \DeclareFieldFormat{labelnumberwidth}{#1.}
 \defbibenvironment{bibliography}
   {\list
@@ -127,6 +142,8 @@
   \newunit\newblock
   \usebibmacro{journal}%
   \usebibmacro{journal:info}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}
   \usebibmacro{related}%
   \usebibmacro{finentry}%
 }
@@ -145,6 +162,8 @@
     {}
     {\addcomma\addspace\printlist{location}}
   \printfield{year}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}
   \usebibmacro{related}%
   \usebibmacro{finentry}%
 }
@@ -187,6 +206,8 @@
   \usebibmacro{publisher+location}%
   \setunit{\space}%
   \printfield{year}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}
   \usebibmacro{related}%
   \usebibmacro{finentry}%
 }
