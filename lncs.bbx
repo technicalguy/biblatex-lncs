@@ -9,7 +9,7 @@
 
 \newtoggle{lncs:abbrev}
 \newtoggle{lncs:series}
-\newtoggle{lncs:conference}  
+\newtoggle{lncs:conference}
 \newtoggle{lncs:lncs}
 \DeclareBibliographyOption{acronym}[true]{\toggletrue{lncs:abbrev}}
 \DeclareBibliographyOption{series}[no]{
@@ -70,7 +70,7 @@
 
 
 \DeclareFieldFormat{journaltitle}{#1}
-\DeclareFieldFormat[article,inproceedings]{title}{#1}
+\DeclareFieldFormat[article,inproceedings,incollection,thesis]{title}{#1}
 \DeclareFieldFormat{booktitle}{#1}
 \DeclareFieldFormat[article]{pages}{#1}
 \DeclareFieldFormat{year}{(#1)}
@@ -114,7 +114,7 @@
     }%
 }
 
-\renewbibmacro{finentry}{\settoggle{lncs:lncs}{false}}
+%\renewbibmacro{finentry}{\settoggle{lncs:lncs}{false}}
 \renewcommand*{\bibinitdelim}{}
 
 \DeclareNameFormat{author}{%
@@ -223,11 +223,30 @@
   \usebibmacro{finentry}%
 }
 
+\DeclareBibliographyDriver{thesis}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printnames{author}
+  \setunit*{\addcolon\space}
+  \printfield{title}%
+  \newunit\newblock
+  \printtext{Ph.D. thesis}
+  \setunit*{\addcomma\space}%
+  \iffieldundef{pages}{}{\printfield{pages}}%
+  \setunit*{\addcomma\space}%
+  \printlist{institution}%
+  \setunit*{\space}%
+  \printfield{year}%
+  \setunit*{\addcomma\space}\newblock%
+  \usebibmacro{doi+eprint+url}%
+  \usebibmacro{related}%
+  \usebibmacro{finentry}%
+}
+
 \DeclareBibliographyDriver{proceedings}{PROCEEDINGS}
 \DeclareBibliographyAlias{incollection}{inproceedings}
 \DeclareBibliographyDriver{online}{ONLINE}
 \DeclareBibliographyDriver{misc}{MISC}
-\DeclareBibliographyDriver{thesis}{THESIS}
 \DeclareBibliographyDriver{techreport}{TECHREPORT}
 
 % \DeclareBibliographyDriver{*}{%
